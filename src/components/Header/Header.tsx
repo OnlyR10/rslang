@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useApplicationAccessContext from '../../hooks/useApplicationAccessContext';
 import classes from './Header.module.scss';
 import Logo from './Logo/Logo';
@@ -7,8 +7,13 @@ import Navbar from './Navigation/Navigation';
 
 const Header: React.FC<{ navigationHide?: boolean }> = ({ navigationHide }) => {
   const { isSignedIn, setIsSignedIn } = useApplicationAccessContext();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const clickHandler = () => {
+    if (location.pathname === '/statistic') {
+      navigate('/');
+    }
     setIsSignedIn(false);
     localStorage.removeItem('user');
   };
